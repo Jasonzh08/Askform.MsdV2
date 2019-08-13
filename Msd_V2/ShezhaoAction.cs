@@ -25,11 +25,11 @@ namespace Msd_V2
 
         private static List<long> GetList()
         {
-            var statetime = DateTime.Now.AddDays(-1).ToString("yyyyMMddhhmmss");
+            var statetime = DateTime.Now.AddDays(-3).ToString("yyyyMMddhhmmss");
             var endtime = DateTime.Now.AddDays(1).ToString("yyyyMMddhhmmss");
             string Url = $@"http://api.beisenapp.com/RecruitV2/{setting.Tenant_ID}/applicant/GetApplicantIdsByDateAndStatus?start_time={statetime}&end_time={endtime}&phase_id=S02&status_id=U03";
 
-            var result = HttpHelper.HttpGet(Url);
+            var result = HttpHelper.HttpGet(Url, setting.AccessToken);
             List<long> ids = JsonConvert.DeserializeObject<List<long>>(result);
             ids.Reverse();
             return ids;
@@ -39,7 +39,7 @@ namespace Msd_V2
         public static void _exec(long id)
         {
             string Url = $@"http://api.beisenapp.com/RecruitV2/{setting.Tenant_ID}/Applicant/ById/{id}?language={1}&photo_base64={0}&has_Long={1}";
-            var Result = HttpHelper.HttpGet(Url);
+            var Result = HttpHelper.HttpGet(Url, setting.AccessToken);
             if (string.IsNullOrEmpty(Result) || Result == "[]") { return; }
              
             List<Applicant> AppList = JsonConvert.DeserializeObject<List<Applicant>>(Result);
@@ -377,7 +377,7 @@ namespace Msd_V2
                     {"phase_id","S02" },
                     {"status_id","U015" }
             };
-            string resultjson = HttpHelper.HttpPost(Url, dicParameter);
+            string resultjson = HttpHelper.HttpPost(Url, dicParameter, setting.AccessToken);
             Result result = JsonConvert.DeserializeObject<Result>(resultjson);
         }
 

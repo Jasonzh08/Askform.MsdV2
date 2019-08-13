@@ -22,11 +22,11 @@ namespace Msd_V2
         /// </summary>
         public static void GetApplicantIdsByDateAndStatus()
         {
-            var stateTime = DateTime.Now.AddDays(-7).ToString("yyyyMMddhhmmss");
+            var stateTime = DateTime.Now.AddDays(-3).ToString("yyyyMMddhhmmss");
             var endtime = DateTime.Now.AddDays(1).ToString("yyyyMMddhhmmss");
             string Url = $@"http://api.beisenapp.com/RecruitV2/{setting.Tenant_ID}/applicant/GetApplicantIdsByDateAndStatus?start_time={stateTime}&end_time={endtime}&phase_id=S03&status_id=U01";
 
-            var result = HttpHelper.HttpGet(Url);
+            var result = HttpHelper.HttpGet(Url, setting.AccessToken);
             List<long> ids = JsonConvert.DeserializeObject<List<long>>(result);
             if (!ids.Any())
                 return;
@@ -46,7 +46,7 @@ namespace Msd_V2
             try
             {
                 string Url = $@"http://api.beisenapp.com/RecruitV2/{setting.Tenant_ID}/Applicant/ById/{IdsStr}?language={1}&photo_base64={0}&has_Long={1}";
-                var Result = HttpHelper.HttpGet(Url);
+                var Result = HttpHelper.HttpGet(Url, setting.AccessToken);
                 if (string.IsNullOrEmpty(Result) || Result == "[]") { return; }
 
                 bool SendAgn = false;
@@ -157,7 +157,7 @@ namespace Msd_V2
                     {"user_id","0"},
                     {"field_values",JsonConvert.SerializeObject(StringValueContainers)}
                 };
-                string resultjson = HttpHelper.HttpPost(Url, dicParameter);
+                string resultjson = HttpHelper.HttpPost(Url, dicParameter, setting.AccessToken);
                 Result result = JsonConvert.DeserializeObject<Result>(resultjson);
             }
         }
@@ -175,7 +175,7 @@ namespace Msd_V2
                     {"status_id","U02" }
                     //{"field_values",JsonConvert.SerializeObject(StringValueContainers)}
                 };
-                string resultjson = HttpHelper.HttpPost(Url, dicParameter);
+                string resultjson = HttpHelper.HttpPost(Url, dicParameter, setting.AccessToken);
                 Result result = JsonConvert.DeserializeObject<Result>(resultjson);
             }
         }

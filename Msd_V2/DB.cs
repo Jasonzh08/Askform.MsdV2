@@ -10,17 +10,18 @@ namespace Msd_V2
 {
     public class DB
     {
-        private static string ConnectionString =new Setting().ConnectionString;
+        private static readonly string ConnectionString = new Setting().ConnectionString;
 
 
-        public  static object ExecuteScalar(string Sql)
+        public static object ExecuteScalar(string Sql)
         {
             object returnValue;
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 cn.Open();
-                using (var Comm = new SqlCommand() { CommandText=Sql, Connection=cn, CommandType= System.Data.CommandType.Text}) {
-                    returnValue= Comm.ExecuteScalar();
+                using (var Comm = new SqlCommand() { CommandText = Sql, Connection = cn, CommandType = System.Data.CommandType.Text })
+                {
+                    returnValue = Comm.ExecuteScalar();
                 };
                 cn.Close();
             }
@@ -53,7 +54,7 @@ namespace Msd_V2
             using (SqlConnection cn = new SqlConnection(ConnectionString))
             {
                 cn.Open();
-                using (SqlCommand cmd = new SqlCommand() { Connection=cn, CommandType= CommandType.Text, CommandTimeout=1500, CommandText=Sql })
+                using (SqlCommand cmd = new SqlCommand() { Connection = cn, CommandType = CommandType.Text, CommandTimeout = 1500, CommandText = Sql })
                 {
                     da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
@@ -64,7 +65,7 @@ namespace Msd_V2
             return dt;
         }
 
-        public static Int64 ExecuteNonQuery(string Sql,bool toCenter=false)
+        public static Int64 ExecuteNonQuery(string Sql, bool toCenter = false)
         {
             var commstr = toCenter ? ConnectionString.Replace("Askform2.0", "AskForm_Center") : ConnectionString;
             using (SqlConnection cn = new SqlConnection(commstr))

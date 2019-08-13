@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using Msd_V2.NewProject;
 
 namespace Msd_V2
 {
@@ -21,13 +22,15 @@ namespace Msd_V2
 
         static void Main(string[] args)
         {
-            //NewAction._exec(159434107);
-   
+            //XiaozhaoAction.GetApplicantIdsByDateAndStatus();
+            //NewAction.Exec();
+            //NewAction.ExecForID(163693377);
+
             //return;
 
             Console.WriteLine("启动成功");
             int Step = 1;
-
+           //ShezhaoAction._exec(163764755);
             timer.Elapsed += (n, m) =>
             {
                 bool success = true;
@@ -60,7 +63,5 @@ namespace Msd_V2
             };
             Console.ReadKey();
         }
-
-
     }
 }

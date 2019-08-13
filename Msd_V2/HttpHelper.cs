@@ -12,10 +12,10 @@ namespace Msd_V2
     public class HttpHelper
     {
         static Setting setting = new Setting();
-        public static string HttpGet(string url)
+        public static string HttpGet(string url,string accessToken)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.Headers.Add("Authorization", setting.ConstString + " " + setting.AccessToken);
+            request.Headers.Add("Authorization", setting.ConstString + " " + accessToken);
             request.Method = "GET";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream responseStream = response.GetResponseStream();
@@ -25,10 +25,10 @@ namespace Msd_V2
         }
 
 
-        public static string HttpPost(string url, Dictionary<string, string> parameterData)
+        public static string HttpPost(string url, Dictionary<string, string> parameterData, string accessToken)
         { 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.Headers.Add("Authorization", setting.ConstString + " " + setting.AccessToken);
+            request.Headers.Add("Authorization", setting.ConstString + " " + accessToken);
             request.Method = "POST";
             string postData = ParameterDataEncode(parameterData);
             byte[] bytes = Encoding.UTF8.GetBytes(postData);

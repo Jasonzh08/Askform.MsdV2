@@ -99,8 +99,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewSetting.cs" />
-    <Compile Include="NewAction.cs" />
+    <Compile Include="NewProject\Apply.cs" />
+    <Compile Include="NewProject\NewApplicant.cs" />
+    <Compile Include="NewProject\NewSetting.cs" />
+    <Compile Include="NewProject\NewAction.cs" />
     <Compile Include="ShezhaoAction.cs" />
     <Compile Include="Applicant.cs" />
     <Compile Include="ApplyJobSummaries.cs" />
